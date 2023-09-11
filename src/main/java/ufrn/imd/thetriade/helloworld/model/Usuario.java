@@ -1,23 +1,43 @@
 package ufrn.imd.thetriade.helloworld.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String senha;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pessoa_id", nullable = false)
+    @JsonIgnoreProperties({"perfis"})
+    private Pessoa pessoa;
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome, String senha) {
+    public Usuario(Long id, String nome, String senha, Pessoa pessoa) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
+        this.pessoa = pessoa;
     }    
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNome() {
@@ -31,6 +51,12 @@ public class Usuario {
     }
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     @Override
@@ -63,7 +89,4 @@ public class Usuario {
             return false;
         return true;
     }
-
-
-    
 }

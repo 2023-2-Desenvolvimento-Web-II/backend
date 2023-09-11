@@ -18,8 +18,8 @@ public class PessoaService {
         return this.pessoaRepository.findAll();
     }
 
-    public Pessoa buscarPessoaPorId(Integer id) {
-        return this.pessoaRepository.findById(id);
+    public Pessoa buscarPessoaPorId(Long id) {
+        return this.pessoaRepository.findById(id).orElse(null);
     }
     
     public Pessoa criarPessoa(Pessoa novaPessoa) {
@@ -30,7 +30,7 @@ public class PessoaService {
         this.pessoaRepository.deleteAll();
     }
 
-    public void removerPessoaPorId(Integer id) {
+    public void removerPessoaPorId(Long id) {
         this.pessoaRepository.deleteById(id);
     }
     

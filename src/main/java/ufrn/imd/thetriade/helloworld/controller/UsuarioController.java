@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ufrn.imd.thetriade.helloworld.model.Usuario;
 import ufrn.imd.thetriade.helloworld.service.UsuarioService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("usuario")
 public class UsuarioController {
@@ -28,7 +30,7 @@ public class UsuarioController {
     }
 
     @GetMapping("{id}")
-    public Usuario buscarUsuarioPorId(@PathVariable Integer id) {
+    public Usuario buscarUsuarioPorId(@PathVariable Long id) {
         return this.usuarioService.buscarUsuarioPorId(id);
     }
 
@@ -39,7 +41,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("{id}")
-    public void removerUsuarioPorId(@PathVariable Integer id) {
+    public void removerUsuarioPorId(@PathVariable Long id) {
         this.usuarioService.removerUsuarioPorId(id);
     }
 

@@ -2,24 +2,36 @@ package ufrn.imd.thetriade.helloworld.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "papel")
 public class Papel {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
+    @Column(columnDefinition = "TEXT")
     private List<String> privilegios;
 
     public Papel() {
     }
 
-    public Papel(Integer id, String nome, List<String> privilegios) {
+    public Papel(Long id, String nome, List<String> privilegios) {
         this.id = id;
         this.nome = nome;
         this.privilegios = privilegios;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNome() {

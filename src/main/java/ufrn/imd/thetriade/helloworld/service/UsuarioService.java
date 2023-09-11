@@ -18,15 +18,15 @@ public class UsuarioService {
         return this.usuarioRepository.findAll();
     }
 
-    public Usuario buscarUsuarioPorId(Integer id) {
-        return this.usuarioRepository.findById(id);
+    public Usuario buscarUsuarioPorId(Long id) {
+        return this.usuarioRepository.findById(id).orElse(null);
     }
 
     public Usuario criarUsuario(Usuario novoUsuario) {
         return this.usuarioRepository.save(novoUsuario);
     }
 
-    public void removerUsuarioPorId(Integer id) {
+    public void removerUsuarioPorId(Long id) {
         this.usuarioRepository.deleteById(id);
     }
 

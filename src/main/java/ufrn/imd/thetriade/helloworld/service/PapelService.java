@@ -17,8 +17,8 @@ public class PapelService {
         return this.papelRepository.findAll();
     }
 
-    public Papel buscarPapelPorId(Integer id) {
-        return this.papelRepository.findById(id);
+    public Papel buscarPapelPorId(Long id) {
+        return this.papelRepository.findById(id).orElse(null);
     }
     
     public Papel criarPapel(Papel novaPapel) {
@@ -29,7 +29,7 @@ public class PapelService {
         this.papelRepository.deleteAll();
     }
 
-    public void removerPapelPorId(Integer id) {
+    public void removerPapelPorId(Long id) {
         this.papelRepository.deleteById(id);
     }
     
