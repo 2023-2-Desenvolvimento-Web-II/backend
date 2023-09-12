@@ -1,13 +1,19 @@
 package ufrn.imd.thetriade.helloworld.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -24,14 +30,27 @@ public class Usuario {
     @JsonIgnoreProperties({"perfis"})
     private Pessoa pessoa;
 
+    @JsonIgnoreProperties({"usuarios"})
+    @ManyToMany(
+        fetch = FetchType.LAZY,
+        cascade = { CascadeType.PERSIST, CascadeType.MERGE }
+    )
+    @JoinTable(
+        name = "usuario_tem_papel",
+        joinColumns = { @JoinColumn(name = "usuario_id")},
+        inverseJoinColumns = { @JoinColumn(name = "papel_id")}
+    )
+    private Set<Papel> papeis = new HashSet<>();
+
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String senha, Pessoa pessoa) {
+    public Usuario(Long id, String nome, String senha, Pessoa pessoa, Set<Papel> papeis) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.pessoa = pessoa;
+        this.papeis = papeis;
     }    
 
     public Long getId() {
@@ -57,6 +76,12 @@ public class Usuario {
     }
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+    public Set<Papel> getPapeis() {
+        return papeis;
+    }
+    public void setPapeis(Set<Papel> papeis) {
+        this.papeis = papeis;
     }
 
     @Override
